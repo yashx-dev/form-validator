@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validator - JS Practice</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-4 md:p-8">
+    <div class="min-h-screen flex flex-col items-center justify-center">
+        <div class="w-full max-w-2xl">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Form Validator</h1>
+                <p class="text-gray-300">Practice JavaScript form validation with this dark theme UI</p>
+            </div>
+
+            <!-- Main Form Card -->
+            <div class="bg-gray-800 rounded-xl shadow-2xl p-6 md:p-8 border border-gray-700">
+                <form id="registrationForm">
+                    <!-- Personal Information Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">Personal Information</h2>
+                        
+                        <!-- Full Name -->
+                        <div class="mb-5">
+                            <label class="block text-gray-300 font-medium mb-2">Full Name <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <input 
+                                    type="text"
+                                    id="fullName"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    placeholder="Enter your full name"
+                                >
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-blue-400"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-red-400 mt-1 hidden" id="nameError"></p>
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="mb-5">
+                            <label class="block text-gray-300 font-medium mb-2">Email Address <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <input 
+                                    type="text"
+                                    id="email"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    placeholder="example@domain.com"
+                                >
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-blue-400"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-red-400 mt-1 hidden" id="emailError"></p>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="mb-5">
+                            <label class="block text-gray-300 font-medium mb-2">Phone Number</label>
+                            <div class="relative">
+                                <input 
+                                    type="text"
+                                    id="phone"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    placeholder="(123) 456-7890"
+                                >
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-phone text-blue-400"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-red-400 mt-1 hidden" id="phoneError"></p>
+                        </div>
+                    </div>
+
+                    <!-- Account Information Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-white mb-4 pb-2 border-b border-gray-700">Account Information</h2>
+                        
+                        <!-- Username -->
+                        <div class="mb-5">
+                            <label class="block text-gray-300 font-medium mb-2">Username <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <input 
+                                    type="text"
+                                    id="username"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    placeholder="Choose a username"
+                                >
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-at text-blue-400"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-red-400 mt-1 hidden" id="usernameError"></p>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-5">
+                            <label class="block text-gray-300 font-medium mb-2">Password <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <input 
+                                    type="password"
+                                    id="passwordInput"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    placeholder="Create a strong password"
+                                >
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-blue-400"></i>
+                                </div>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <button type="button" id="toggle" class="text-gray-400 hover:text-gray-300">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex items-center mb-1">
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div id="passwordStrength" class="h-2 rounded-full w-0"></div>
+                                    </div>  
+                                    <span class="ml-3 text-sm font-medium text-gray-300" id="passwordStrengthText">Weak</span>
+                                </div>
+                                <p class="text-xs text-gray-400">Must be at least 8 characters with uppercase, lowercase, number, and special character</p>
+                            </div>
+                            <p class="text-sm text-red-400 mt-1 hidden" id="passwordError"></p>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-5">
+                            <label class="block text-gray-300 font-medium mb-2">Confirm Password <span class="text-red-400">*</span></label>
+                            <div class="relative">
+                                <input 
+                                    type="password"
+                                    id="confirmPassword"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    placeholder="Re-enter your password"
+                                >
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-blue-400"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-red-400 mt-1 hidden" id="confirmPasswordError"></p>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="mb-8">
+                        <div class="flex items-start">
+                            <input 
+                                type="checkbox"
+                                id="terms"
+                                class="mt-1 mr-3 rounded focus:ring-blue-500 bg-gray-900 border-gray-700 text-blue-500"
+                            >
+                            <label for="terms" class="text-gray-300">
+                                I agree to the <a href="#" class="text-blue-400 hover:text-blue-300 hover:underline">Terms and Conditions</a> <span class="text-red-400">*</span>
+                            </label>
+                        </div>
+                        <p class="text-sm text-red-400 mt-1 hidden" id="termsError"></p>
+                    </div>
+
+                    <!-- Form Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button 
+                            type="button"
+                            id="validateBtn"
+                            class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 px-4 rounded-lg transition duration-200 shadow-lg"
+                        >
+                            <i class="fas fa-check-circle mr-2"></i> Validate Form
+                        </button>
+                        
+                        <button 
+                            type="button"
+                            id="resetBtn"
+                            class="flex-1 bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-3 px-4 rounded-lg transition duration-200"
+                        >
+                            <i class="fas fa-redo mr-2"></i> Reset Form
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Validation Result -->
+                <div id="validationResult" class="mt-8 p-4 rounded-lg border hidden border-gray-700">
+                    <div class="flex items-center">
+                        <i class="fas text-2xl mr-3" id="resultIcon"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white" id="resultTitle"></h3>
+                            <p class="text-gray-300" id="resultMessage"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validation Summary -->
+                <div class="mt-8 pt-6 border-t border-gray-700">
+                    <h3 class="text-white font-medium mb-4">Validation Rules</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                            <h4 class="font-medium text-white mb-2"><i class="fas fa-user text-blue-400 mr-2"></i> Personal Info</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li><i class="fas fa-check text-green-400 mr-2"></i> Name: 2+ characters</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i> Email: Valid format</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i> Phone: Optional, but valid if provided</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                            <h4 class="font-medium text-white mb-2"><i class="fas fa-lock text-blue-400 mr-2"></i> Account Info</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li><i class="fas fa-check text-green-400 mr-2"></i> Username: 3-20 characters</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i> Password: 8+ chars, mixed case</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i> Passwords must match</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-8">
+                <p class="text-gray-400 text-sm">Practice your JavaScript form validation skills with dark theme</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
