@@ -17,11 +17,21 @@
 // passwordError
 // confirmPasswordError
 // termsError
+// phoneError
 
 const fullName = document.getElementById("fullName");
 const nameError = document.getElementById("nameError");
 const email = document.getElementById("email");
 const emailError = document.getElementById("emailError");
+const phone = document.getElementById("phone");
+const phoneError = document.getElementById("phoneError");
+const username = document.getElementById("username");
+let input = document.getElementById("passwordInput");
+let passwordStrengthText = document.getElementById("passwordStrengthText");
+let passwordError = document.getElementById("passwordError");
+let passwordStrength = document.getElementById("passwordStrength");
+let toggle = document.getElementById("toggle");
+const usernameError = document.getElementById("usernameError");
 const registrationForm = document.getElementById("registrationForm");
 
 let UserData = {
@@ -32,11 +42,23 @@ let UserData = {
   Password: "",
 };
 
-// function number(check) {
-//   return /[1-9]/.test(check);
-// }
+function number(no) {
+  return /^[0-9]{10}$/.test(no);
+}
 function emailregex(verify) {
   return /^[a-z0-9-+.]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(verify);
+}
+function userregex(check) {
+  return /^[A-Za-z0-9]{0,15}$/.test(check);
+}
+function passwordcheck(value) {
+  return /[a-zA-Z]/.test(value);
+}
+function passwordcheck2(value) {
+  return /[0-9]/.test(value);
+}
+function passwordcheck3(value) {
+  return /[!@#$%^&*_-]/.test(value);
 }
 
 registrationForm.addEventListener("click", (c) => {
@@ -45,6 +67,12 @@ registrationForm.addEventListener("click", (c) => {
     Namecheck();
   } else if (c.target.id === "email") {
     emailcheck();
+  } else if (c.target.id === "phone") {
+    phonecheck();
+  } else if (c.target.id === "username") {
+    usercheck();
+  } else if (c.target.id === "passwordInput") {
+    passwordchecker();
   }
 });
 
@@ -70,6 +98,7 @@ function emailcheck() {
     }
     email.addEventListener("change", (e) => {
       Email = e.target.value;
+      Email.toLowerCase();
       if (!emailregex(Email)) {
         emailError.classList.remove("hidden");
         emailError.innerHTML = "Invalid Email";
@@ -79,5 +108,87 @@ function emailcheck() {
       }
       console.log(UserData);
     });
+  });
+}
+function phonecheck() {
+  phone.addEventListener("change", (e) => {
+    Phone = e.target.value;
+    if (!number(Phone)) {
+      phoneError.classList.remove("hidden");
+      phoneError.innerHTML = "Invalid Mobile Number";
+    } else {
+      // Phone.replace(/(\d{5})/ , '$1 ')
+      UserData.PhoneNumber = Phone;
+      phoneError.classList.add("hidden");
+    }
+    console.log(UserData);
+  });
+}
+function usercheck() {
+  username.addEventListener("change", (e) => {
+    User = e.target.value;
+    if (!userregex(User)) {
+      usernameError.classList.remove("hidden");
+      usernameError.innerHTML =
+        "Invalid Username Maximum 15 Characters and only (Uppercase, Lowercase, Number)";
+    } else {
+      UserData.UserName = User;
+      usernameError.classList.add("hidden");
+    }
+    console.log(UserData);
+  });
+}
+function passwordchecker() {
+  toggle.addEventListener("click", () => {
+    input.type === "password"
+      ? (input.type = "text")
+      : (input.type = "password");
+  });
+
+  input.addEventListener("input", (e) => {
+    target = e.target.value;
+    console.log(target);
+    if (target.length < 8) {
+      passwordError.classList.remove("hidden");
+      passwordError.innerHTML = "Password must be greater than 8";
+      passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
+passwordStrength.classList.add('bg-red-400')
+    } else if (
+      passwordcheck(target) &&
+      passwordcheck2(target) &&
+      passwordcheck3(target)
+    ) {
+      passwordStrengthText.innerHTML = "Strong";
+      passwordStrength.classList.remove('bg-red-400', 'bg-orange-400', 'bg-gray-700')
+      passwordStrength.classList.add('bg-green-400')
+    } else if (
+      (passwordcheck(target) && passwordcheck2(target)) ||
+      (passwordcheck2(target) && passwordcheck3(target)) ||
+      (passwordcheck(target) && passwordcheck3(target))
+    ) {
+passwordStrength.classList.add('bg-orange-400')
+passwordStrength.classList.remove('bg-green-400', 'bg-red-400', 'bg-gray-700')
+      passwordStrengthText.innerHTML = "Medium";
+    } else if (passwordcheck2(target)) {
+      passwordStrengthText.innerHTML = "Weak";
+      passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
+passwordStrength.classList.add('bg-red-400')
+UserData.Password = target
+    } else if (passwordcheck3(target)) {
+      passwordStrengthText.innerHTML = "Weak";
+passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
+passwordStrength.classList.add('bg-red-400')
+UserData.Password = target
+
+    } else if (passwordcheck(target)) {
+      passwordStrengthText.innerHTML = "Weak";
+      passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
+passwordStrength.classList.add('bg-red-400')
+UserData.Password = target
+    }else{
+        passwordError.classList.add("hidden");
+    }
+    console.log(UserData);
+    
   });
 }
