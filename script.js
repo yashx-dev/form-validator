@@ -19,6 +19,12 @@
 // termsError
 // phoneError
 
+
+
+
+
+// there's a bug to solve that bug you just need to remove event listner from registrationform and remove all other function and little dedbugging in email because of space's preventDefault()
+
 const fullName = document.getElementById("fullName");
 const nameError = document.getElementById("nameError");
 const email = document.getElementById("email");
@@ -29,10 +35,17 @@ const username = document.getElementById("username");
 let input = document.getElementById("passwordInput");
 let passwordStrengthText = document.getElementById("passwordStrengthText");
 let passwordError = document.getElementById("passwordError");
+let confirmPassword = document.getElementById("confirmPassword");
+let confirmPasswordError = document.getElementById("confirmPasswordError");
 let passwordStrength = document.getElementById("passwordStrength");
 let toggle = document.getElementById("toggle");
+let terms = document.getElementById("terms");
+let validateBtn = document.getElementById("validateBtn");
+let resetBtn = document.getElementById("resetBtn");
+let termsError = document.getElementById("termsError");
 const usernameError = document.getElementById("usernameError");
 const registrationForm = document.getElementById("registrationForm");
+let tag = document.getElementsByClassName("errortag");
 
 let UserData = {
   Name: "",
@@ -73,6 +86,10 @@ registrationForm.addEventListener("click", (c) => {
     usercheck();
   } else if (c.target.id === "passwordInput") {
     passwordchecker();
+  } else if (c.target.id === "confirmPassword") {
+    confirm();
+  } else if (c.target.id === "terms") {
+    checkbox();
   }
 });
 
@@ -151,44 +168,112 @@ function passwordchecker() {
     if (target.length < 8) {
       passwordError.classList.remove("hidden");
       passwordError.innerHTML = "Password must be greater than 8";
-      passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
-passwordStrength.classList.add('bg-red-400')
+      passwordStrength.classList.remove(
+        "bg-green-400",
+        "bg-orange-400",
+        "bg-gray-700"
+      );
+      passwordStrength.classList.add("bg-red-400");
     } else if (
       passwordcheck(target) &&
       passwordcheck2(target) &&
       passwordcheck3(target)
     ) {
       passwordStrengthText.innerHTML = "Strong";
-      passwordStrength.classList.remove('bg-red-400', 'bg-orange-400', 'bg-gray-700')
-      passwordStrength.classList.add('bg-green-400')
+      passwordStrength.classList.remove(
+        "bg-red-400",
+        "bg-orange-400",
+        "bg-gray-700"
+      );
+      passwordStrength.classList.add("bg-green-400");
+      passwordError.classList.add("hidden");
     } else if (
       (passwordcheck(target) && passwordcheck2(target)) ||
       (passwordcheck2(target) && passwordcheck3(target)) ||
       (passwordcheck(target) && passwordcheck3(target))
     ) {
-passwordStrength.classList.add('bg-orange-400')
-passwordStrength.classList.remove('bg-green-400', 'bg-red-400', 'bg-gray-700')
+      passwordStrength.classList.add("bg-orange-400");
+      passwordStrength.classList.remove(
+        "bg-green-400",
+        "bg-red-400",
+        "bg-gray-700"
+      );
       passwordStrengthText.innerHTML = "Medium";
+      passwordError.classList.add("hidden");
     } else if (passwordcheck2(target)) {
       passwordStrengthText.innerHTML = "Weak";
-      passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
-passwordStrength.classList.add('bg-red-400')
-UserData.Password = target
+      passwordStrength.classList.remove(
+        "bg-green-400",
+        "bg-orange-400",
+        "bg-gray-700"
+      );
+      passwordStrength.classList.add("bg-red-400");
+      UserData.Password = target;
+      passwordError.classList.add("hidden");
     } else if (passwordcheck3(target)) {
       passwordStrengthText.innerHTML = "Weak";
-passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
-passwordStrength.classList.add('bg-red-400')
-UserData.Password = target
-
+      passwordStrength.classList.remove(
+        "bg-green-400",
+        "bg-orange-400",
+        "bg-gray-700"
+      );
+      passwordStrength.classList.add("bg-red-400");
+      UserData.Password = target;
+      passwordError.classList.add("hidden");
     } else if (passwordcheck(target)) {
       passwordStrengthText.innerHTML = "Weak";
-      passwordStrength.classList.remove('bg-green-400', 'bg-orange-400', 'bg-gray-700')
-passwordStrength.classList.add('bg-red-400')
-UserData.Password = target
-    }else{
-        passwordError.classList.add("hidden");
+      passwordStrength.classList.remove(
+        "bg-green-400",
+        "bg-orange-400",
+        "bg-gray-700"
+      );
+      passwordStrength.classList.add("bg-red-400");
+      UserData.Password = target;
+      passwordError.classList.add("hidden");
     }
     console.log(UserData);
-    
   });
 }
+
+function confirm() {
+  confirmPassword.addEventListener("change", (e) => {
+    sure = e.target.value;
+    console.log(sure);
+    if (UserData.Password == "") {
+      confirmPasswordError.classList.remove("hidden");
+      confirmPasswordError.innerHTML = "Please Enter the Password first";
+    } else if (sure != UserData.Password) {
+      confirmPasswordError.classList.remove("hidden");
+      confirmPasswordError.innerHTML =
+        "Confirm Password doesn't Match with Password";
+    } else if (sure == UserData.Password) {
+      confirmPasswordError.classList.add("hidden");
+    }
+    // console.log(UserData);
+  });
+}
+function checkbox() {
+  terms.addEventListener("change", (e) => {
+    check = e.target.checked;
+    console.log(check);
+    if (!check) {
+      termsError.classList.remove("hidden");
+      termsError.innerHTML = "Please Confirm the Terms and Conditions";
+    } else {
+      termsError.classList.add("hidden");
+    }
+    // console.log(UserData);
+  });
+}
+  btn = false;
+  resetBtn.addEventListener("click", (e) => {
+    btn = !btn;
+    console.log(btn);
+    if (btn == true) {
+      registrationForm.reset();
+      Array.from(tag).forEach((errortag) => {
+        errortag.classList.add("hidden");
+      });
+    }
+    console.log(UserData);
+  });
