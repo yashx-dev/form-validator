@@ -33,10 +33,10 @@
                         <div class="mb-5">
                             <label class="block text-gray-300 font-medium mb-2">Full Name <span class="text-red-400">*</span></label>
                             <div class="relative">
-                                <input 
+                                <input required 
                                     type="text"
                                     id="fullName"
-                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    class="blank-check w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
                                     placeholder="Enter your full name"
                                 >
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -50,10 +50,10 @@
                         <div class="mb-5">
                             <label class="block text-gray-300 font-medium mb-2">Email Address <span class="text-red-400">*</span></label>
                             <div class="relative">
-                                <input 
+                                <input required 
                                     type="text"
                                     id="email"
-                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    class="blank-check w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
                                     placeholder="example@domain.com"
                                 >
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -89,10 +89,10 @@
                         <div class="mb-5">
                             <label class="block text-gray-300 font-medium mb-2">Username <span class="text-red-400">*</span></label>
                             <div class="relative">
-                                <input 
+                                <input required 
                                     type="text"
                                     id="username"
-                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    class="blank-check w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
                                     placeholder="Choose a username"
                                 >
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -106,10 +106,10 @@
                         <div class="mb-5">
                             <label class="block text-gray-300 font-medium mb-2">Password <span class="text-red-400">*</span></label>
                             <div class="relative">
-                                <input 
+                                <input required 
                                     type="password"
                                     id="passwordInput"
-                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    class="blank-check w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
                                     placeholder="Create a strong password"
                                 >
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -137,10 +137,10 @@
                         <div class="mb-5">
                             <label class="block text-gray-300 font-medium mb-2">Confirm Password <span class="text-red-400">*</span></label>
                             <div class="relative">
-                                <input 
+                                <input required 
                                     type="password"
                                     id="confirmPassword"
-                                    class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
+                                    class="blank-check w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-white placeholder-gray-500"
                                     placeholder="Re-enter your password"
                                 >
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -154,10 +154,10 @@
                     <!-- Terms and Conditions -->
                     <div class="mb-8">
                         <div class="flex items-start">
-                            <input 
+                            <input required 
                                 type="checkbox"
                                 id="terms"
-                                class="mt-1 mr-3 rounded focus:ring-blue-500 bg-gray-900 border-gray-700 text-blue-500"
+                                class="mblank-check t-1 mr-3 rounded focus:ring-blue-500 bg-gray-900 border-gray-700 text-blue-500"
                             >
                             <label for="terms" class="text-gray-300">
                                 I agree to the <a href="#" class="text-blue-400 hover:text-blue-300 hover:underline">Terms and Conditions</a> <span class="text-red-400">*</span>
@@ -173,7 +173,8 @@
                             id="validateBtn"
                             class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 px-4 rounded-lg transition duration-200 shadow-lg"
                         >
-                            <i class="fas fa-check-circle mr-2"></i> Validate Form
+                            <!-- <i class="fas fa-check-circle mr-2"></i> -->
+                             Validate Form
                         </button>
                         
                         <button 
